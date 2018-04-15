@@ -67,3 +67,4 @@ monodroid*.msi
 [Pp]roperties/
 *.config
 Program.cs
+*.txt

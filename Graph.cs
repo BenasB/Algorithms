@@ -1,28 +1,42 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 public class Graph
 {
+    public bool Bidirectional { get; set; }
+
     Dictionary<int, Node> nodeLookup = new Dictionary<int, Node>();
 
-    class Node
+    protected class Node
     {
-        int id;
-        public HashSet<Node> adjacent = new HashSet<Node>();
+        public int ID { get; private set; }
+        public List<Node> adjacent = new List<Node>();
 
-        private Node(int id)
+        public Node(int id)
         {
-            this.id = id;
+            ID = id;
         }
     }
 
-    Node GetNode(int id)
+    public Graph()
+    {
+        Bidirectional = true;
+    }
+
+    public Graph(bool bidirectional)
+    {
+        Bidirectional = bidirectional;
+    }
+
+    protected Node GetNode(int id)
     {
         if (nodeLookup.ContainsKey(id))
             return nodeLookup[id];
         else
-            throw new ArgumentOutOfRangeException("id", "A node with that id doesn't exist");
+        {
+            Node newNode = new Node(id);
+            nodeLookup[id] = newNode;
+            return newNode;
+        }
     }
 
     public void AddEdge(int start, int destination)
@@ -30,5 +44,7 @@ public class Graph
         Node s = GetNode(start);
         Node d = GetNode(destination);
         s.adjacent.Add(d);
+        if (Bidirectional)
+            d.adjacent.Add(s);
     }
 }
