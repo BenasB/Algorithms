@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 
+/// <summary>
+/// Base class for all graphs
+/// </summary>
 public class Graph
 {
-    public bool Bidirectional { get; set; }
-
+    bool bidirectional;
     Dictionary<int, Node> nodeLookup = new Dictionary<int, Node>();
 
     protected class Node
@@ -19,12 +21,12 @@ public class Graph
 
     public Graph()
     {
-        Bidirectional = true;
+        bidirectional = true;
     }
 
     public Graph(bool bidirectional)
     {
-        Bidirectional = bidirectional;
+        this.bidirectional = bidirectional;
     }
 
     protected Node GetNode(int id)
@@ -44,7 +46,7 @@ public class Graph
         Node s = GetNode(start);
         Node d = GetNode(destination);
         s.adjacent.Add(d);
-        if (Bidirectional)
+        if (bidirectional)
             d.adjacent.Add(s);
     }
 }
