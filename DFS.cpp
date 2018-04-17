@@ -58,7 +58,7 @@ public:
 class GraphDFS : public Graph
 {
 private:
-    bool DFS(Node source, Node destination, set<int>& visited)
+    bool isReachable(Node source, Node destination, set<int>& visited)
     {
         if (visited.find(source.ID) != visited.end())
             return false;
@@ -70,7 +70,7 @@ private:
 
         for (auto i : source.adjacent)
         {
-            if (DFS(*i, destination, visited))
+            if (isReachable(*i, destination, visited))
                 return true;
         }
 
@@ -81,12 +81,12 @@ public:
 
     GraphDFS (bool direct) : Graph (direct) {}
 
-    bool DFS(int u, int v)
+    bool isReachable(int u, int v)
     {
         Node* source = getNode(u);
         Node* destination = getNode(v);
         set<int> visited;
-        return DFS(*source, *destination, visited);
+        return isReachable(*source, *destination, visited);
     }
 };
 
@@ -104,5 +104,5 @@ int main()
     graph.addEdge(9, 10);
     graph.addEdge(10, 8);
 
-    cout << graph.DFS(7, 4) << endl;
+    cout << graph.isReachable(7, 4) << endl;
 }
