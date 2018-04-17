@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <unordered_map>
 #include <set>
 
@@ -7,17 +6,14 @@ using namespace std;
 
 struct Node
 {
-    vector<Node*> adjacent;
+    set<Node*> adjacent;
     int ID;
-
-    bool operator==(const Node& other)
-    {
-        return this->ID == other.ID;
-    }
 };
 
-struct Graph
+class Graph
 {
+protected:
+    bool directed;
     unordered_map<int, Node> nodeLookup;
 
     Node* getNode(int id)
@@ -33,12 +29,16 @@ struct Graph
         }
     }
 
+public:
+    Graph(bool direct) : directed(direct) {}
+
     void addEdge(int u, int v)
     {
         Node* source = getNode(u);
         Node* destination = getNode(v);
-        source->adjacent.push_back(destination);
-        destination->adjacent.push_back(source);
+        source->adjacent.insert(destination);
+        if (!directed)
+            destination->adjacent.insert(source);
     }
 
     void print()
@@ -53,7 +53,11 @@ struct Graph
             cout << '\n';
         }
     }
+};
 
+class GraphDFS : public Graph
+{
+private:
     bool DFS(Node source, Node destination, set<int>& visited)
     {
         if (visited.find(source.ID) != visited.end())
@@ -61,7 +65,7 @@ struct Graph
 
         visited.insert(source.ID);
 
-        if (source == destination)
+        if (source.ID == destination.ID)
             return true;
 
         for (auto i : source.adjacent)
@@ -72,6 +76,10 @@ struct Graph
 
         return false;
     }
+
+public:
+
+    GraphDFS (bool direct) : Graph (direct) {}
 
     bool DFS(int u, int v)
     {
@@ -84,7 +92,7 @@ struct Graph
 
 int main()
 {
-    Graph graph;
+    GraphDFS graph(false);
     graph.addEdge(1, 2);
     graph.addEdge(3, 2);
     graph.addEdge(3, 5);
@@ -92,6 +100,9 @@ int main()
     graph.addEdge(5, 4);
     graph.addEdge(2, 4);
     graph.addEdge(1, 6);
+    graph.addEdge(8, 9);
+    graph.addEdge(9, 10);
+    graph.addEdge(10, 8);
 
-    cout << graph.DFS(1, 4) << endl;
+    cout << graph.DFS(7, 4) << endl;
 }
