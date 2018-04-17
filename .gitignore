@@ -9,6 +9,7 @@ x64/
 [Bb]in/
 [Oo]bj/
 .vs
+.vscode
 *.pidb
 *.userprefs
 *.[Oo]bj
