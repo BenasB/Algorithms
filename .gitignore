@@ -69,3 +69,5 @@ monodroid*.msi
 *.config
 Program.cs
 *.txt
+*.o
+*.a
