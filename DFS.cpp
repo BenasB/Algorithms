@@ -82,18 +82,18 @@ public:
 
     GraphDFS (bool direct) : Graph (direct) {}
 
-    bool isReachableRecursive(int u, int v)
-    {
-        Node* source = getNode(u);
-        Node* destination = getNode(v);
-        set<int> visited;
-        return isReachableRecursive(*source, *destination, visited);
-    }
-
-    bool isReachableIterative(int u, int v)
+    bool isReachableRecursive(int source, int destination)
     {
         Node* c = getNode(u);
         Node* d = getNode(v);
+        set<int> visited;
+        return isReachableRecursive(*c, *d, visited);
+    }
+
+    bool isReachableIterative(int source, int destination)
+    {
+        Node* c = getNode(source);
+        Node* d = getNode(destination);
         set<int> visited;
         stack<Node*> s;
 
