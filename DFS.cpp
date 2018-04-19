@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <set>
+#include <stack>
 
 using namespace std;
 
@@ -58,7 +59,7 @@ public:
 class GraphDFS : public Graph
 {
 private:
-    bool isReachable(Node source, Node destination, set<int>& visited)
+    bool isReachableRecursive(Node source, Node destination, set<int>& visited)
     {
         if (visited.find(source.ID) != visited.end())
             return false;
@@ -70,7 +71,7 @@ private:
 
         for (auto i : source.adjacent)
         {
-            if (isReachable(*i, destination, visited))
+            if (isReachableRecursive(*i, destination, visited))
                 return true;
         }
 
@@ -81,12 +82,41 @@ public:
 
     GraphDFS (bool direct) : Graph (direct) {}
 
-    bool isReachable(int u, int v)
+    bool isReachableRecursive(int u, int v)
     {
         Node* source = getNode(u);
         Node* destination = getNode(v);
         set<int> visited;
-        return isReachable(*source, *destination, visited);
+        return isReachableRecursive(*source, *destination, visited);
+    }
+
+    bool isReachableIterative(int u, int v)
+    {
+        Node* c = getNode(u);
+        Node* d = getNode(v);
+        set<int> visited;
+        stack<Node*> s;
+
+        s.push(c);
+        while (!s.empty())
+        {
+            c = s.top();
+            s.pop();
+
+            if (c->ID == d->ID)
+                return true;
+
+            if (visited.find(c->ID) ==  visited.end())
+            {
+                visited.insert(c->ID);
+                for(auto i : c->adjacent)
+                {
+                    s.push(i);
+                }
+            }
+        }
+
+        return false;
     }
 };
 
@@ -104,5 +134,5 @@ int main()
     graph.addEdge(9, 10);
     graph.addEdge(10, 8);
 
-    cout << graph.isReachable(7, 4) << endl;
+    cout << graph.isReachableIterative(1, 4) << endl;
 }
