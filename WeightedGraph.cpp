@@ -1,16 +1,13 @@
-#include <iostream>
 #include <unordered_map>
 #include <set>
 
-using namespace std;
-
 struct Node;
 
-typedef pair<Node*, int> pni;
+typedef std::pair<Node*, int> pni;
 
 struct Node
 {
-    set<pni> adjacent;
+    std::set<pni> adjacent;
     int ID;
 };
 
@@ -18,7 +15,7 @@ class WeightedGraph
 {
 private:
     bool directed;
-    unordered_map<int, Node> nodeLookup;
+    std::unordered_map<int, Node> nodeLookup;
 
 protected:
     Node* getNode(int id)

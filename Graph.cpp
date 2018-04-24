@@ -1,11 +1,9 @@
 #include <unordered_map>
 #include <set>
 
-using namespace std;
-
 struct Node
 {
-    set<Node*> adjacent;
+    std::set<Node*> adjacent;
     int ID;
 };
 
@@ -13,7 +11,7 @@ class Graph
 {
 private:
     bool directed;
-    unordered_map<int, Node> nodeLookup;
+    std::unordered_map<int, Node> nodeLookup;
 
 protected:
     Node* getNode(int id)
