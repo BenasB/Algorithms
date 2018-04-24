@@ -32,12 +32,12 @@ protected:
 public:
     Graph(bool direct) : directed(direct) {}
 
-    void addEdge(int u, int v)
+    void addEdge(int source, int destination)
     {
-        Node* source = getNode(u);
-        Node* destination = getNode(v);
-        source->adjacent.insert(destination);
+        Node* s = getNode(source);
+        Node* d = getNode(destination);
+        s->adjacent.insert(d);
         if (!directed)
-            destination->adjacent.insert(source);
+            d->adjacent.insert(s);
     }
 };

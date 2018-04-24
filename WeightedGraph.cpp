@@ -1,31 +1,48 @@
 #include <iostream>
-#include <Graph.cpp>
+#include <unordered_map>
 #include <set>
 
 using namespace std;
 
-class WeightedGraph : public Graph
+struct Node;
+
+typedef pair<Node*, int> pni;
+
+struct Node
+{
+    set<pni> adjacent;
+    int ID;
+};
+
+class WeightedGraph
 {
 private:
-    typedef pair<Node*, int> pni;
-    unordered_map<int, pni> nodeLookup;
+    bool directed;
+    unordered_map<int, Node> nodeLookup;
 
 protected:
-    pni getNode(int id)
+    Node* getNode(int id)
     {
         if (nodeLookup.find(id) != nodeLookup.end())
-            return nodeLookup[id];
+            return &nodeLookup[id];
         else
         {
-            // Create new and return
+            Node newNode;
+            newNode.ID = id;
+            nodeLookup[id] = newNode;
+            return &nodeLookup[id];
         }
     }
 
 public:
-    // Implement addEdge
+    WeightedGraph (bool direct) : directed(direct) {}
+
+    void addEdge(int source, int destination, int weight)
+    {
+        Node* s = getNode(source);
+        Node* d = getNode(destination);
+        s->adjacent.insert(pni(s, weight));
+        if (!directed)
+            d->adjacent.insert(pni(d, weight));
+    }
 };
-
-int main()
-{
-
-}
