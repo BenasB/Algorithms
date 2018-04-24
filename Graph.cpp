@@ -11,10 +11,11 @@ struct Node
 
 class Graph
 {
-protected:
+private:
     bool directed;
     unordered_map<int, Node> nodeLookup;
 
+protected:
     Node* getNode(int id)
     {
         if (nodeLookup.find(id) != nodeLookup.end())
