@@ -13,7 +13,8 @@ practice.
 * BFS
 
 ### C++
- 
+
+*Works with c++11*
 * Graph
 * Weighted Graph
 * DFS (Recursive)
