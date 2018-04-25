@@ -26,12 +26,14 @@ public:
 
             if (c->ID == d->ID)
                 return true;
-
+			
+			// Check if it is visited
             if (visited.find(c->ID) != visited.end())
                 continue;
 
             visited.insert(c->ID);
 
+			// Push all adjacent Nodes onto the queue
             for(auto i : c->adjacent)
             {
                 Q.push(i);
@@ -44,6 +46,7 @@ public:
 
 int main()
 {
+	// Sample code
     GraphBFS graph(false);
 
     graph.addEdge(1, 2);

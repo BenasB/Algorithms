@@ -8,8 +8,10 @@ using namespace std;
 class GraphDFS : public Graph
 {
 private:
+	// A helper function which is called recursively
     bool isReachableRecursive(Node source, Node destination, set<int>& visited)
     {
+		// Check if the source node is already visited
         if (visited.find(source.ID) != visited.end())
             return false;
 
@@ -18,6 +20,7 @@ private:
         if (source.ID == destination.ID)
             return true;
 
+		// Call the recursive method for each adjacent Node
         for (auto i : source.adjacent)
         {
             if (isReachableRecursive(*i, destination, visited))
@@ -28,14 +31,15 @@ private:
     }
 
 public:
-
     GraphDFS (bool direct) : Graph (direct) {}
-
+	
+	// A starter function which starts the recursion
     bool isReachableRecursive(int source, int destination)
     {
         Node* c = getNode(source);
         Node* d = getNode(destination);
         set<int> visited;
+		
         return isReachableRecursive(*c, *d, visited);
     }
 
@@ -56,11 +60,13 @@ public:
             if (c->ID == d->ID)
                 return true;
 
+			// Check if it is visited
             if (visited.find(c->ID) != visited.end())
                 continue;
 
             visited.insert(c->ID);
 
+			// Push all adjacent Nodes onto the stack
             for(auto i : c->adjacent)
             {
                 s.push(i);
@@ -73,7 +79,9 @@ public:
 
 int main()
 {
+	// Sample code
     GraphDFS graph(false);
+	
     graph.addEdge(1, 2);
     graph.addEdge(3, 2);
     graph.addEdge(3, 5);

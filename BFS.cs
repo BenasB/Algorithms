@@ -6,7 +6,6 @@ class GraphBFS : Graph
     {
         Node s = GetNode(source);
         Node d = GetNode(destination);
-
         HashSet<int> visited = new HashSet<int>();
         Queue<Node> nextToVisit = new Queue<Node>();
 
@@ -24,6 +23,7 @@ class GraphBFS : Graph
 
             visited.Add(node.ID);
 
+			// Enqueue all adjacent Nodes onto the queue
             for (int i = 0; i < node.adjacent.Count; i++)
             {
                 nextToVisit.Enqueue(node.adjacent[i]);

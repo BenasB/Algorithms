@@ -1,19 +1,27 @@
+// A base Graph class which is included in unweighted algorithms
+
 #include <unordered_map>
 #include <set>
 
 struct Node
 {
-    std::set<Node*> adjacent;
+    std::set<Node*> adjacent;	
     int ID;
 };
 
 class Graph
 {
 private:
+	// Determines if the graph is directed
+	// (edges are one-way)
     bool directed;
+	
+	// Keeps track of nodes based on IDs
     std::unordered_map<int, Node> nodeLookup;
 
 protected:
+	// Returns node from nodeLookup
+	// Creates a new one if it doesn't exist
     Node* getNode(int id)
     {
         if (nodeLookup.find(id) != nodeLookup.end())
@@ -34,6 +42,7 @@ public:
     {
         Node* s = getNode(source);
         Node* d = getNode(destination);
+		
         s->adjacent.insert(d);
         if (!directed)
             d->adjacent.insert(s);
