@@ -45,9 +45,9 @@ public class PriorityQueue<T> where T : IComparable<T>
         int lastIndex = data.Count - 1;
 
         T frontItem = data[0];
-        data.RemoveAt(lastIndex);
-
         data[0] = data[lastIndex];
+        
+        data.RemoveAt(lastIndex);
 
         lastIndex--;
 
