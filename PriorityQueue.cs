@@ -10,6 +10,16 @@ public class PriorityQueue<T> where T : IComparable<T>
         data = new List<T>();
     }
 
+    public bool Empty
+    {
+        get { return data.Count == 0; }
+    }
+
+    public int Count
+    {
+        get { return data.Count; }
+    }
+
     public void Enqueue(T item)
     {
         data.Add(item);
@@ -30,7 +40,7 @@ public class PriorityQueue<T> where T : IComparable<T>
     public T Dequeue()
     {
         if (data.Count == 0)
-            throw new ArgumentException();
+            throw new IndexOutOfRangeException();
 
         int lastIndex = data.Count - 1;
 
@@ -64,6 +74,11 @@ public class PriorityQueue<T> where T : IComparable<T>
         }
 
         return frontItem;
+    }
+
+    public T Peek()
+    {
+        return data[0];
     }
 
     private void Swap(int lhs, int rhs)
