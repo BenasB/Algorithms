@@ -9,6 +9,7 @@ practice.
 
 * Graph
 * Weighted Graph
+* Priority Queue
 * DFS (Recursive)
 * DFS (Iterative)
 * BFS
