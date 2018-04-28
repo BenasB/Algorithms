@@ -8,9 +8,11 @@ practice.
 ### C#
 
 * Graph
+* Weighted Graph
 * DFS (Recursive)
 * DFS (Iterative)
 * BFS
+* Dijkstra
 
 ### C++
 
