@@ -14,6 +14,7 @@ practice.
 * DFS (Iterative)
 * BFS
 * Dijkstra
+* Heap
 
 ### C++
 
